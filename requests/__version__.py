@@ -2,7 +2,7 @@
 # |(  |-  |.| | | |-  `-.  |  `-.
 # ' ' `-' `-`.`-' `-' `-'  '  `-'
 
-__title__ = "requests_fast"
+__title__ = "requests"
 __description__ = "Python HTTP for Humans."
 __url__ = "https://requests.readthedocs.io"
 __version__ = "2.28.0"
