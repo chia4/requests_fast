@@ -75,7 +75,7 @@ class BaseAdapter:
         super().__init__()
 
     def send(
-        self, request, stream=False, timeout=None, verify=True, cert=None, proxies=None
+        self, request, content_lenth_cache=None, stream=False, timeout=None, verify=True, cert=None, proxies=None
     ):
         """Sends PreparedRequest object. Returns Response object.
 
@@ -434,7 +434,7 @@ class HTTPAdapter(BaseAdapter):
         return headers
 
     def send(
-        self, request, stream=False, timeout=None, verify=True, cert=None, proxies=None
+        self, request, content_lenth_cache=None,  stream=False, timeout=None, verify=True, cert=None, proxies=None
     ):
         """Sends PreparedRequest object. Returns Response object.
 
@@ -497,6 +497,7 @@ class HTTPAdapter(BaseAdapter):
                     decode_content=False,
                     retries=self.max_retries,
                     timeout=timeout,
+                    content_lenth_cache=content_lenth_cache
                 )
 
             # Send the request.
@@ -536,6 +537,7 @@ class HTTPAdapter(BaseAdapter):
                         connection=low_conn,
                         preload_content=False,
                         decode_content=False,
+                        content_lenth_cache=content_lenth_cache
                     )
                 except Exception:
                     # If we hit any problems here, clean up the connection.

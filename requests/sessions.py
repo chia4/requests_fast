@@ -515,6 +515,7 @@ class Session(SessionRedirectMixin):
         verify=None,
         cert=None,
         json=None,
+        content_lenth_cache = None
     ):
         """Constructs a :class:`Request <Request>`, prepares it and sends it.
         Returns :class:`Response <Response>` object.
@@ -584,7 +585,7 @@ class Session(SessionRedirectMixin):
             "allow_redirects": allow_redirects,
         }
         send_kwargs.update(settings)
-        resp = self.send(prep, **send_kwargs)
+        resp = self.send(prep, content_lenth_cache, **send_kwargs)
 
         return resp
 
@@ -668,7 +669,7 @@ class Session(SessionRedirectMixin):
 
         return self.request("DELETE", url, **kwargs)
 
-    def send(self, request, **kwargs):
+    def send(self, request, content_lenth_cache=None, **kwargs):
         """Send a given PreparedRequest.
 
         :rtype: requests.Response
@@ -698,7 +699,7 @@ class Session(SessionRedirectMixin):
         start = preferred_clock()
 
         # Send the request
-        r = adapter.send(request, **kwargs)
+        r = adapter.send(request, content_lenth_cache, **kwargs)
 
         # Total elapsed time of the request (approximately)
         elapsed = preferred_clock() - start
